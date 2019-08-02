@@ -17,10 +17,6 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    @app.route('/hello')
-    def hello():
-        return 'hello'
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(mod.bp)

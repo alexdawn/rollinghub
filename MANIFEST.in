@@ -1,0 +1,4 @@
+include rollinghub/schema.sql
+graft rollinghub/static
+graft rollinghub/templates
+global-exclude *.pyc
