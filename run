@@ -1,0 +1,5 @@
+export FLASK_APP=rollinghub
+export FLASK_ENV=development
+. activate rollinghub
+flask init-db
+flask run
