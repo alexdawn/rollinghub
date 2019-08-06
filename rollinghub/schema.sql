@@ -14,4 +14,4 @@ create table mod (
     title text not null,
     description text not null,
     foreign key (author_id) references user (id)
-)
+);
