@@ -1,1 +1,1 @@
-web: gunicorn rollinghub:app
+web: gunicorn wsgi:app
