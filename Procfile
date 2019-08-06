@@ -1,1 +1,1 @@
-web: waitress-serve rollinghub.wsgi:app
+web: waitress-serve --port $PORT rollinghub.wsgi:app
