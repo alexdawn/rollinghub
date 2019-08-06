@@ -6,7 +6,6 @@ set -u
 CONTEXT=${1:-"default"}
 
 export FLASK_APP=rollinghub
-. activate rollinghub
 if [[ $CONTEXT == "dev" ]] ; then
     export FLASK_ENV=development
     flask init-db

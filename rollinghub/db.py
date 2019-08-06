@@ -36,3 +36,6 @@ def init_app(app):
 def init_db_command():
     init_db()
     click.echo("Initialized the database.")
+
+if __name__ == "__main__":
+    init_db()

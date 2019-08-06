@@ -1,1 +1,2 @@
-web: flask init-db && waitress-serve --port $PORT rollinghub.wsgi:app
+web: waitress-serve --port $PORT rollinghub.wsgi:app
+init: python db.py
