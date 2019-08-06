@@ -6,9 +6,12 @@ set -u
 CONTEXT=${1:-"default"}
 
 export FLASK_APP=rollinghub
+. activate rollinghub
 if [[ $CONTEXT == "dev" ]] ; then
     export FLASK_ENV=development
+    flask init-db
+    flask run
 fi
-. activate rollinghub
-flask init-db
-flask run
+if [[ $CONTEXT == "prod" ]] 0; then
+    gunicorn rollinghub:rollinghub
+fi

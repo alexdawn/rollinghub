@@ -1,1 +1,1 @@
-web: bash run prod
+web: gunicorn rollinghub:app
