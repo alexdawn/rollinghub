@@ -1,5 +1,5 @@
 drop table if exists user;
-drop table if exists post;
+drop table if exists mod;
 
 create table user (
     id integer primary key autoincrement,
