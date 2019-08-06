@@ -1,5 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+CONTEXT=${1:-"default"}
+
 export FLASK_APP=rollinghub
-export FLASK_ENV=development
+if [[ $CONTEXT == "dev" ]] ; then
+    export FLASK_ENV=development
+fi
 . activate rollinghub
 flask init-db
 flask run
