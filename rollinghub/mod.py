@@ -10,15 +10,16 @@ bp = Blueprint('mod', __name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
-    posts = db.execute(
+    db, cur = get_db()
+    cur.execute(
         """
 SELECT m.id, title, description, created, author_id, username
     FROM mod as m
     JOIN user as u
     ON m.author_id = u.id
         """
-    ).fetchall()
+    )
+    posts = cur.fetchall()
     return render_template('mod/index.html', posts=posts)
 
 
@@ -34,10 +35,10 @@ def create():
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
+            db, cur = get_db()
+            cur.execute(
                 """
-INSERT INTO mod (title, description, author_id) VALUES (?, ?, ?)
+INSERT INTO mod (title, description, author_id) VALUES (%s, %s, %s)
                 """, (title, body, g.user['id'])
             )
             db.commit()
@@ -47,15 +48,17 @@ INSERT INTO mod (title, description, author_id) VALUES (?, ?, ?)
 
 
 def get_post(id, check_author=True):
-    post = get_db().execute(
+    db, cur = get_db()
+    cur.execute(
         """
 SELECT m.id, title, description, created, author_id, username
     FROM mod as m
     JOIN user as u
     ON m.author_id = u.id
-    WHERE m.id = ?
+    WHERE m.id = %s
         """, (id, )
-    ).fetchone()
+    )
+    post = cur.fetchone()
     if post is None:
         abort(404, "Post id {} does not exist".format(id))
     if check_author and post['author_id'] != g.user['id']:
@@ -76,9 +79,9 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                "UPDATE mod SET title = ?, description = ? WHERE id = ?",
+            db, cur = get_db()
+            cur.execute(
+                "UPDATE mod SET title = %s, description = %s WHERE id = %s",
                 (title, body, id)
             )
             db.commit()
@@ -90,7 +93,7 @@ def update(id):
 @login_required
 def delete(id):
     get_post(id)
-    db = get_db()
-    db.execute('DELETE FROM mod WHERE id = ?', (id,))
+    db, cur = get_db()
+    cur.execute('DELETE FROM mod WHERE id = %s', (id,))
     db.commit()
     return redirect(url_for('mod.index'))
