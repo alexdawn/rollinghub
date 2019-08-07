@@ -15,10 +15,10 @@ if [[ $CONTEXT == "dev" ]] ; then
 fi
 if [[ $CONTEXT == "stage" ]] ; then
     source venv/Scripts/activate
-    export FLASK_ENV=development
     export DATABASE_URL=rollinghub
     waitress-serve --port 5000 rollinghub.wsgi:app
 fi
 if [[ $CONTEXT == "prod" ]] ; then
-    waitress-serve --port $PORT rollinghub.wsgi:app
+    flask init-db
+    flask run
 fi
