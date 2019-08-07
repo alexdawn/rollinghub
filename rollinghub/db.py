@@ -1,4 +1,3 @@
-import urllib.parse as urlparse
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
@@ -8,19 +7,9 @@ import psycopg2.extras
 
 def get_db():
     if 'db' not in g:
-        url = urlparse.urlparse(current_app.config['DATABASE'])
-        dbname = url.path
-        user = url.username
-        password = url.password
-        host = url.hostname
-        port = url.port
-        g.db = psycopg2.connect(
-            dbname=dbname,
-            user=user,
-            password=password,
-            host=host,
-            port=port
-            )
+        url = current_app.config['DATABASE']
+        sslmode = 'require' if current_app.config['SSL_REQUIRE'] else 'allow'
+        g.db = psycopg2.connect(url, sslmode=sslmode)
     return g.db, g.db.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 

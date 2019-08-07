@@ -1,1 +1,1 @@
-web: bash ./run prod
+web: bash ./run dev
