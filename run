@@ -20,5 +20,5 @@ if [[ $CONTEXT == "stage" ]] ; then
 fi
 if [[ $CONTEXT == "prod" ]] ; then
     flask init-db
-    flask run
+    waitress-serve --port 5000 rollinghub.wsgi:app
 fi
