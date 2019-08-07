@@ -1,17 +1,19 @@
-drop table if exists user;
-drop table if exists mod;
+drop table if exists "user" cascade;
+drop table if exists mod cascade;
 
-create table user (
-    id integer primary key autoincrement,
+create table "user" (
+    id serial,
     username text unique not null,
-    password text not null
+    password text not null,
+    primary key (id)
 );
 
 create table mod (
-    id integer primary key autoincrement,
+    id serial,
     author_id integer not null,
     created timestamp not null default current_timestamp,
     title text not null,
     description text not null,
-    foreign key (author_id) references user (id)
+    primary key (id),
+    foreign key (author_id) references "user" (id)
 );

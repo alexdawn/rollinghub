@@ -3,14 +3,22 @@
 set -e
 set -u
 
-CONTEXT=${1:-"default"}
+CONTEXT=${1:-"dev"}
 
 export FLASK_APP=rollinghub
 if [[ $CONTEXT == "dev" ]] ; then
+    source venv/Scripts/activate
     export FLASK_ENV=development
+    export DATABASE_URL=rollinghub
     flask init-db
     flask run
 fi
-if [[ $CONTEXT == "prod" ]] 0; then
-    gunicorn rollinghub:rollinghub
+if [[ $CONTEXT == "stage" ]] ; then
+    source venv/Scripts/activate
+    export FLASK_ENV=development
+    export DATABASE_URL=rollinghub
+    waitress-serve --port 5000 rollinghub.wsgi:app
+fi
+if [[ $CONTEXT == "prod" ]] ; then
+    waitress-serve --port $PORT rollinghub.wsgi:app
 fi

@@ -15,7 +15,7 @@ def index():
         """
 SELECT m.id, title, description, created, author_id, username
     FROM mod as m
-    JOIN user as u
+    JOIN "user" as u
     ON m.author_id = u.id
         """
     )
@@ -53,7 +53,7 @@ def get_post(id, check_author=True):
         """
 SELECT m.id, title, description, created, author_id, username
     FROM mod as m
-    JOIN user as u
+    JOIN "user" as u
     ON m.author_id = u.id
     WHERE m.id = %s
         """, (id, )
