@@ -16,9 +16,14 @@ fi
 if [[ $CONTEXT == "stage" ]] ; then
     source venv/Scripts/activate
     export DATABASE_URL=postgresql://localhost:5432/rollinghub
+    export PORT=5000
     flask init-db
-    python ./rollinghub/wsgi.py
+    waitress-serve --port="$PORT" --call 'rollinghub:create_app'
+fi
+if [[ $CONTEXT == "init" ]] ; then
+    FLASK_APP=rollinghub
+    flask init-db
 fi
 if [[ $CONTEXT == "prod" ]] ; then
-    python ./rollinghub/wsgi.py
+    waitress-serve --port="$PORT" --call 'rollinghub:create_app'
 fi

@@ -8,6 +8,11 @@ from rollinghub.db import get_db
 bp = Blueprint('mod', __name__)
 
 
+@bp.route('/test')
+def hello():
+    return "hello world"
+
+
 @bp.route('/')
 def index():
     db, cur = get_db()
