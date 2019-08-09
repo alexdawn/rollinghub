@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+<articles>
   {% for post in posts %}
     <article class="post">
       <header>
@@ -18,11 +19,14 @@
         {% if g.user['id'] == post['author_id'] %}
           <a class="action" href="{{ url_for('mod.update', id=post['id']) }}">Edit</a>
         {% endif %}
+          <a class="action" href="{{ url_for('mod.download', mod_id=post['id'])}}">Download</a>
       </header>
+      <img class="thumbnail" src="{{ url_for('mod.image', mod_id=post['id'])}}" alt="{{ 'preview of {}'.format(post['title']) }}"/>
       <p class="body">{{ post['description'] }}</p>
     </article>
     {% if not loop.last %}
       <hr>
     {% endif %}
   {% endfor %}
+</articles>
 {% endblock %}

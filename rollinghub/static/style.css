@@ -16,7 +16,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .post > header > div:first-of-type { flex: auto; }
 .post > header h1 { font-size: 1.5em; margin-bottom: 0; }
 .post .about { color: slategray; font-style: italic; }
-.post .body { white-space: pre-line; }
+.post .body { white-space: pre-line; margin: 0; padding: 0; }
 .content:last-child { margin-bottom: 0; }
 .content form { margin: 1em 0; display: flex; flex-direction: column; }
 .content label { font-weight: bold; margin-bottom: 0.5em; }
@@ -24,3 +24,23 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
+img.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+article {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    grid-auto-flow: dense;
+      }
+/* This will create 2x images every 4 elements */
+article:nth-child(4n) {
+    grid-column: span 2; /* Spans two columns */
+    grid-row: span 2; /* Spans two rows */
+  }
+
+/* This will create 3x images every 8 elements */
+article:nth-child(8n) {
+    grid-column: span 3;
+    grid-row: span 3;
+  }

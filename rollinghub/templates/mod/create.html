@@ -5,11 +5,35 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
+  <form method="post" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Attributes</legend>
+      <label for="title">Title</label>
+      <input name="title" id="title" value="{{ request.form['title'] }}" required autofocus><br>
+      <label for="vehicle">Vehicle Type</label>
+      <input type="radio" name="vehicle" value="locomotive" checked>Locomotive
+      <input type="radio" name="vehicle" value="coach">Coach
+      <input type="radio" name="vehicle" value="wagon">Wagon<br>
+      <label for="country">Countries</label>
+      <input list="country" class="flexdatalist" type='text' placeholder='countries' class='flexdatalist' data-min-length='1' multiple='multiple'>
+      <datalist id="country">
+          {% for country in countries %}
+          <option value="{{ country.alpha3 }}">{{ country.name }}</option>
+          {% endfor %}
+      </datalist><br>
+      <label for="body">Description</label><br>
+      <textarea name="body" id="body">{{ request.form['body'] }}</textarea><br>
+      <label for="tags">Tags</label>
+      <input name="tags" id="tags" value="{{ request.form['tags'] }}"><br>
+    </fieldset>
+    <fieldset>
+        <legend>Mod Files</legend>
+        <label for="files">File</label>
+        <input type=file name=files required>
+        <label for="thumbnail">thumbnail</label>
+        <input type=file name=thumbnail required>
+    </fieldset>
+
+    <input type="submit" value="Upload">
   </form>
 {% endblock %}

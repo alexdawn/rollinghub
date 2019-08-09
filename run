@@ -10,7 +10,7 @@ if [[ $CONTEXT == "dev" ]] ; then
     source venv/Scripts/activate
     export FLASK_ENV=development
     export DATABASE_URL=postgresql://localhost:5432/rollinghub
-    flask init-db
+    #flask init-db
     flask run
 fi
 if [[ $CONTEXT == "stage" ]] ; then

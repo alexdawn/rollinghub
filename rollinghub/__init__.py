@@ -6,9 +6,13 @@ from . import db, auth, mod
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY=os.environ['SECRET'] if os.environ.get('IS_HEROKU') else 'dev',
+        SECRET_KEY=(
+            os.environ['SECRET'] if os.environ.get('IS_HEROKU') else 'dev'),
         DATABASE=os.environ['DATABASE_URL'],
-        SSL_REQUIRE=True if os.environ.get('IS_HEROKU') else False
+        SSL_REQUIRE=True if os.environ.get('IS_HEROKU') else False,
+        MAX_CONTENT_LENGTH=16 * 1024 * 1024,  # 16MB
+        ALLOWED_EXTENSIONS={
+            'txt', 'pdn', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'obj', 'blend', 'zip'}
     )
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)

@@ -13,6 +13,13 @@ create table mod (
     author_id integer not null,
     created timestamp not null default current_timestamp,
     title text not null,
+    mod_type text,
+    countries text[],
+    tags text[],
+    filename text not null,
+    file bytea not null,
+    thumbnail_name text not null,
+    thumbnail bytea not null,
     description text not null,
     primary key (id),
     foreign key (author_id) references "user" (id)
