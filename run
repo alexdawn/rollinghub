@@ -22,7 +22,7 @@ if [[ $CONTEXT == "stage" ]] ; then
 fi
 if [[ $CONTEXT == "init" ]] ; then
     export FLASK_APP=rollinghub
-    flask init-db
+    rollinghub init-db
 fi
 if [[ $CONTEXT == "prod" ]] ; then
     gunicorn --bind 0.0.0.0:$PORT rollinghub.wsgi:app
