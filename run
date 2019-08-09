@@ -21,9 +21,9 @@ if [[ $CONTEXT == "stage" ]] ; then
     waitress-serve --port="$PORT" --call 'rollinghub:create_app'
 fi
 if [[ $CONTEXT == "init" ]] ; then
-    FLASK_APP=rollinghub
+    export FLASK_APP=rollinghub
     flask init-db
 fi
 if [[ $CONTEXT == "prod" ]] ; then
-    waitress-serve --port="$PORT" --call 'rollinghub:create_app'
+    gunicorn --bind 0.0.0.0:$PORT rollinghub:create_app
 fi
