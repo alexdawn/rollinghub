@@ -1,2 +1,2 @@
 web: bash ./run prod
-init: bash ./run init
+release: bash ./run init
