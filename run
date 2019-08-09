@@ -25,5 +25,5 @@ if [[ $CONTEXT == "init" ]] ; then
     flask init-db
 fi
 if [[ $CONTEXT == "prod" ]] ; then
-    gunicorn --bind 0.0.0.0:$PORT rollinghub:create_app
+    gunicorn --bind 0.0.0.0:$PORT rollinghub.wsgi:app
 fi
