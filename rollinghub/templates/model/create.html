@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Mod{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Model</legend>
+      <label for="model_title">Model Name</label>
+      <input name="model_title" id="model_title" value="{{ request.form['model_title'] }}"
+       required autofocus><br>
+      <label for="model_type">Model Type</label>
+      <input type="radio" name="model_type" value="locomotive" checked>Locomotive
+      <input type="radio" name="model_type" value="coach">Coach
+      <input type="radio" name="model_type" value="wagon">Wagon<br>
+      <label for="countries">Countries</label>
+      <input list="countries" class="flexdatalist" type='text' placeholder='countries'
+       class='flexdatalist' data-min-length='1' multiple='multiple'
+       value="{{ request.form['countries'] }}">
+      <datalist id="country">
+          {% for country in countries_list %}
+          <option value="{{ country.alpha3 }}">{{ country.name }}</option>
+          {% endfor %}
+      </datalist><br>
+      <label for="model_description">Description</label><br>
+      <textarea name="model_description"
+       id="model_description">{{ request.form['model_description'] }}</textarea><br>
+      <label for="model_tags">Tags</label>
+      <input name="model_tags" id="model_tags" value="{{ request.form['tags'] }}"><br>
+    </fieldset>
+    <fieldset>
+      <legend>Default Variant</legend>
+      <label for="variant_name">Name</label>
+      <input name="variant_name" id="variant_name" value="{{ request.form['variant_name'] }}" required><br>
+      <label for="variant_description">Description</label><br>
+      <textarea name="variant_description"
+       id="variant_description">{{ request.form['variant_description'] }}</textarea><br>
+       <label for="variant_tags">Tags</label>
+      <input name="variant_tags" id="variant_tags" value="{{ request.form['variant_tags'] }}"><br>
+    </fieldset>
+    <fieldset>
+      <legend>Default Livery</legend>
+      <label for="livery_name">Name</label>
+      <input name="livery_name" id="livery_name" value="{{ request.form['livery_name'] }}" required><br>
+      <label for="livery_description">Description</label><br>
+      <textarea name="livery_description"
+       id="livery_description">{{ request.form['model_description'] }}</textarea><br>
+    </fieldset>
+    <fieldset>
+        <legend>Model Files</legend>
+        <label for="files">File</label>
+        <input type=file name=files required>
+        <label for="thumbnail">thumbnail</label>
+        <input type=file name=thumbnail required>
+    </fieldset>
+
+    <input type="submit" value="Upload">
+  </form>
+{% endblock %}

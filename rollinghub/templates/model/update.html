@@ -14,7 +14,8 @@
     <input type="submit" value="Save">
   </form>
   <hr>
-  <form action="{{ url_for('mod.delete', id=post['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  <form action="{{ url_for('model.delete', id=post['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete"
+     onclick="return confirm('Are you sure you want to delete your model?');">
   </form>
 {% endblock %}

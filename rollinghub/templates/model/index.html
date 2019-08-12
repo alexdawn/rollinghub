@@ -3,7 +3,7 @@
 {% block header %}
   <h1>{% block title %}Models{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('mod.create') }}">New</a>
+    <a class="action" href="{{ url_for('model.create') }}">New</a>
   {% endif %}
 {% endblock %}
 
@@ -14,14 +14,15 @@
       <header>
         <div>
           <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+          <div class="about">by {{ post['nickname'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
         </div>
         {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('mod.update', id=post['id']) }}">Edit</a>
+          <a class="action" href="{{ url_for('model.update', id=post['id']) }}">Edit</a>
         {% endif %}
-          <a class="action" href="{{ url_for('mod.download', mod_id=post['id'])}}">Download</a>
+          <a class="action" href="{{ url_for('model.download', model_id=post['id'])}}">Download</a>
       </header>
-      <img class="thumbnail" src="{{ url_for('mod.image', mod_id=post['id'])}}" alt="{{ 'preview of {}'.format(post['title']) }}"/>
+      <img class="thumbnail" src="{{ url_for('model.image', model_id=post['id'])}}"
+       alt="{{ 'preview of {}'.format(post['title']) }}"/>
       <p class="body">{{ post['description'] }}</p>
     </article>
     {% if not loop.last %}

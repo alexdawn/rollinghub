@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from . import db, auth, mod
+from . import db, auth, model
 
 
 def create_app(test_config=None):
@@ -24,6 +24,6 @@ def create_app(test_config=None):
         pass
     db.init_app(app)
     app.register_blueprint(auth.bp)
-    app.register_blueprint(mod.bp)
+    app.register_blueprint(model.bp)
     app.add_url_rule('/', endpoint='index')
     return app

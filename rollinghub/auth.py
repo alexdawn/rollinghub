@@ -11,25 +11,31 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
+        nickname = request.form['nickname']
         password = request.form['password']
         db, cur = get_db()
         error: str = None
-        if not username:
-            error = 'Username is required'
+        if not email:
+            error = 'Email is required'
         elif not password:
             error = 'Password is required'
+        elif not nickname:
+            error = 'Nickname is required'
         else:
             cur.execute(
-                'SELECT id FROM "user" WHERE username = %s', (username, )
+                'SELECT id FROM "user" WHERE email = %s', (email, )
             )
             if cur.fetchone() is not None:
-                error = 'Username {} is already taken'.format(username)
+                error = 'Email {} is already taken'.format(email)
 
         if error is None:
             cur.execute(
-                'INSERT INTO "user" (username, password) VALUES (%s, %s)',
-                (username, generate_password_hash(password))
+                """
+                INSERT INTO "user" (email, nickname, password)
+                VALUES (%s, %s, %s)
+                """,
+                (email, nickname, generate_password_hash(password))
             )
             db.commit()
             return redirect(url_for('auth.login'))
@@ -41,16 +47,16 @@ def register():
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         db, cur = get_db()
         error: str = None
         cur.execute(
-            'SELECT * FROM "user" where username = %s', (username,)
+            'SELECT * FROM "user" where email = %s', (email,)
         )
         user = cur.fetchone()
         if user is None:
-            error = 'Incorrect username'
+            error = 'Incorrect email'
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password'
 

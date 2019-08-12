@@ -9,13 +9,13 @@ export FLASK_APP=rollinghub
 if [[ $CONTEXT == "dev" ]] ; then
     source venv/Scripts/activate
     export FLASK_ENV=development
-    export DATABASE_URL=postgresql://localhost:5432/rollinghub
+    export DATABASE_URL=postgresql://rollinghub@localhost:5432/rollinghub
     flask init-db
     flask run
 fi
 if [[ $CONTEXT == "stage" ]] ; then
     source venv/Scripts/activate
-    export DATABASE_URL=postgresql://localhost:5432/rollinghub
+    export DATABASE_URL=postgresql://rollinghub@localhost:5432/rollinghub
     export PORT=5000
     flask init-db
     waitress-serve --port="$PORT" --call 'rollinghub:create_app'
