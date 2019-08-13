@@ -14,6 +14,7 @@ def register():
         email = request.form['email']
         nickname = request.form['nickname']
         password = request.form['password']
+        password2 = request.form['password2']
         db, cur = get_db()
         error: str = None
         if not email:
@@ -22,6 +23,8 @@ def register():
             error = 'Password is required'
         elif not nickname:
             error = 'Nickname is required'
+        elif password != password2:
+            error = 'Passwords do not match'
         else:
             cur.execute(
                 'SELECT id FROM "user" WHERE email = %s', (email, )

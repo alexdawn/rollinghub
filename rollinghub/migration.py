@@ -16,5 +16,5 @@ def init_db():
         cur.execute(f.read())
     db.commit()
 
-    
+
 init_db()

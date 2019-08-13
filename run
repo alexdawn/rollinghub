@@ -13,6 +13,14 @@ if [[ $CONTEXT == "dev" ]] ; then
     flask init-db
     flask run
 fi
+if [[ $CONTEXT == "test" ]] ; then
+    source venv/Scripts/activate
+    flake8
+    mypy . --ignore-missing-imports
+    bash ./init-db.sh PGDATA testing
+    export DATABASE_URL=postgresql://rollinghub@localhost:5432/testing
+    pytest
+fi
 if [[ $CONTEXT == "stage" ]] ; then
     source venv/Scripts/activate
     export DATABASE_URL=postgresql://rollinghub@localhost:5432/rollinghub
