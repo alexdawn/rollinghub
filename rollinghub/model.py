@@ -50,7 +50,7 @@ SELECT thumbnail_name, thumbnail
     return send_file(
         io.BytesIO(model['thumbnail']),
         mimetype='image/jpeg',
-        attachment_filename=model['thumbnail'])
+        attachment_filename=model['thumbnail_name'])
 
 
 @bp.route('/download/<int:model_id>')

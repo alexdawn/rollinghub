@@ -8,4 +8,4 @@ def test_config():
 
 def test_hello(client):
     response = client.get('/')
-    assert 'rollinghub' in response.data
+    assert bytes('rollinghub', 'utf-8') in response.data

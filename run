@@ -17,9 +17,10 @@ if [[ $CONTEXT == "test" ]] ; then
     source venv/Scripts/activate
     flake8
     mypy . --ignore-missing-imports
-    bash ./init-db.sh PGDATA testing
+    bash ./init-db.sh PGDATA testing || echo "db already exists"
     export DATABASE_URL=postgresql://rollinghub@localhost:5432/testing
     pytest
+    psql -c drop database testing
 fi
 if [[ $CONTEXT == "stage" ]] ; then
     source venv/Scripts/activate
