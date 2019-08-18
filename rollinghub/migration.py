@@ -4,7 +4,7 @@ import os
 
 
 def get_db():
-    url = os.environ['DATABASE']
+    url = os.environ['DATABASE_URL']
     sslmode = 'require'
     db = psycopg2.connect(url, sslmode=sslmode)
     return db, db.cursor(cursor_factory=psycopg2.extras.DictCursor)
