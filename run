@@ -32,7 +32,7 @@ if [[ $CONTEXT == "stage" ]] ; then
 fi
 if [[ $CONTEXT == "init" ]] ; then
     export FLASK_APP=rollinghub
-    export DATABASE_URL=${$DATABASE_URL:-postgresql://rollinghub@localhost:5432/rollinghub}
+    export DATABASE_URL=${DATABASE_URL:-"postgresql://rollinghub@localhost:5432/rollinghub"}
     python ./rollinghub/migration.py
 fi
 if [[ $CONTEXT == "prod" ]] ; then
