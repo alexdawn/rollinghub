@@ -32,7 +32,7 @@ if [[ $CONTEXT == "stage" ]] ; then
 fi
 if [[ $CONTEXT == "init" ]] ; then
     export FLASK_APP=rollinghub
-    python migration.py
+    python ./rollinghub/migration.py
 fi
 if [[ $CONTEXT == "prod" ]] ; then
     gunicorn --bind 0.0.0.0:$PORT rollinghub.wsgi:app
