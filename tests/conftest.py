@@ -19,7 +19,7 @@ def app():
         init_db()
         db, cur = get_db()
         cur.execute(_data_sql)
-
+        db.commit()
     yield app
 
 
@@ -31,3 +31,23 @@ def client(app):
 @pytest.fixture
 def runner(app):
     return app.test_cli_runner()
+
+
+class AuthActions(object):
+    def __init__(self, client):
+        self._client = client
+
+    def login(self, email='test@test.com', password='test'):
+        return self._client.post(
+            '/auth/login',
+            data={
+                'email': email, 'password': password}
+        )
+
+    def logout(self):
+        return self._client.get('/auth/logout')
+
+
+@pytest.fixture
+def auth(client):
+    return AuthActions(client)

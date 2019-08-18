@@ -19,8 +19,9 @@ if [[ $CONTEXT == "test" ]] ; then
     mypy . --ignore-missing-imports
     bash ./init-db.sh PGDATA testing || echo "db already exists"
     export DATABASE_URL=postgresql://rollinghub@localhost:5432/testing
-    pytest
-    psql -c drop database testing
+    coverage run -m pytest
+    coverage report
+    psql -U rollinghub -c "drop database testing"
 fi
 if [[ $CONTEXT == "stage" ]] ; then
     source venv/Scripts/activate

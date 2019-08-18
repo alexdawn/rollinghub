@@ -19,18 +19,24 @@ def register():
         error: str = None
         if not email:
             error = 'Email is required'
-        elif not password:
-            error = 'Password is required'
         elif not nickname:
             error = 'Nickname is required'
+        elif not password:
+            error = 'Password is required'
         elif password != password2:
             error = 'Passwords do not match'
         else:
             cur.execute(
-                'SELECT id FROM "user" WHERE email = %s', (email, )
+                'SELECT id FROM \"user\" WHERE email = %s', (email, )
             )
             if cur.fetchone() is not None:
                 error = 'Email {} is already taken'.format(email)
+            else:
+                cur.execute(
+                    'SELECT id FROM \"user\" WHERE nickname = %s', (nickname, )
+                )
+                if cur.fetchone() is not None:
+                    error = 'Nickname {} is already taken'.format(nickname)
 
         if error is None:
             cur.execute(
@@ -55,14 +61,11 @@ def login():
         db, cur = get_db()
         error: str = None
         cur.execute(
-            'SELECT * FROM "user" where email = %s', (email,)
+            'SELECT * FROM \"user\" where email = %s', (email,)
         )
         user = cur.fetchone()
-        if user is None:
-            error = 'Incorrect email'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password'
-
+        if user is None or not check_password_hash(user['password'], password):
+            error = 'Incorrect email or password'
         if error is None:
             session.clear()
             session['user_id'] = user['id']
