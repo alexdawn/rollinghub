@@ -5,14 +5,14 @@ import os
 
 def get_db():
     url = os.environ['DATABASE_URL']
-    sslmode = 'require'
+    sslmode = 'allow'
     db = psycopg2.connect(url, sslmode=sslmode)
     return db, db.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 
 def init_db():
     db, cur = get_db()
-    with open('./schema.sql', 'r') as f:
+    with open('./rollinghub/schema.sql', 'r') as f:
         cur.execute(f.read())
     db.commit()
 
