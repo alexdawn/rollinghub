@@ -10,6 +10,7 @@ flake8==3.7.8
 Flask==1.1.1
 gunicorn==19.9.0
 importlib-metadata==0.17
+iso3166==1.0
 isort==4.3.21
 itsdangerous==1.1.0
 Jinja2==2.10.1
@@ -20,7 +21,7 @@ more-itertools==7.2.0
 mypy==0.701
 mypy-extensions==0.4.1
 packaging==19.0
-Paste==3.1.0
+PasteDeploy==2.0.1
 pluggy==0.12.0
 psutil==5.4.8
 psycopg2==2.7.6.1
@@ -31,7 +32,7 @@ pylint==2.3.1
 pyparsing==2.4.0
 pytest==5.0.1
 python-dotenv==0.10.3
--e git+https://github.com/alexdawn/rollinghub.git@fd85e6c6668fa612a63b2dd532fa81773fea0901#egg=rollinghub
+-e git+https://github.com/alexdawn/rollinghub.git@a8fe259f8e6d8f37469d4e318cb1523004a90582#egg=rollinghub
 six==1.12.0
 typed-ast==1.4.0
 waitress==1.3.0
