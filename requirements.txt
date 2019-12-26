@@ -35,7 +35,7 @@ python-dotenv==0.10.3
 -e git+https://github.com/alexdawn/rollinghub.git@a8fe259f8e6d8f37469d4e318cb1523004a90582#egg=rollinghub
 six==1.12.0
 typed-ast==1.4.0
-waitress==1.4.0
+waitress==1.4.1
 wcwidth==0.1.7
 Werkzeug==0.15.4
 wincertstore==0.2
